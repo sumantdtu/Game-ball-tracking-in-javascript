@@ -1,1 +1,3 @@
 # Game-ball-tracking-in-javascript
+To play this game add path of images used and run it in your browser.
+Play unlimited.Thanks...
