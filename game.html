@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>game</title></head>
+
+<body bgcolor="skyblue">
+<audio id="audio" src="C:\Users\sumant\Desktop\5.mp3"></audio>
+<div id="result"  style ="height:70px; width:500px; margin-left:500px; background-color:lightgreen; font-size:50px; color:red"></div>
+<img src="C:\Users\sumant\Desktop\bg.png" id='back' style='position:absolute; top:0; left:0; z-index:1'>
+<img src="C:\Users\sumant\Desktop\bat.png" id='bat' style='position:absolute; top:0; left:0; z-index:3'>
+<img src="C:\Users\sumant\Desktop\ball.png" id='ball' style='position:absolute; top:200; left:0; z-index:2'>
+<script>
+var bat = document.getElementById('bat').style;
+var ball = document.getElementById('ball').style;
+var xbat=0;
+var ybat=0;
+var xball=0;
+var yball=200;
+var xspeed= 10;
+var yspeed= 10;
+var score =10;
+var timer;
+moveTimer();
+
+document.onkeydown = KeyDownMoveIt;
+function KeyDownMoveIt(e){
+if(e.keyCode==39)
+xbat = xbat + 40;
+bat.left = xbat;
+
+if(e.keyCode==37)
+xbat = xbat - 40;
+if(e.keyCode==38)
+ybat = ybat - 40;
+
+if(e.keyCode==40){
+ybat = ybat + 40;
+
+}
+if(xbat>500-100)
+xbat=500-100;
+if(ybat>500-25)
+ybat=500-25;
+if(xbat<0)
+xbat=0;
+if(ybat<0)
+ybat=0;
+bat.left = xbat;
+bat.top = ybat;
+}
+function play(){
+var audio = document.getElementById("audio");
+if(audio.paused){
+audio.play();
+}
+else {
+audio.currentTime = 0;
+}
+}
+function moveTimer(){
+
+if(xball+xspeed>500-50)
+xspeed= -5*Math.random()-5;
+if(xball+xspeed<0)
+xspeed= 5*Math.random()+5;
+if(yball+yspeed>500-50)
+yspeed= -5*Math.random()-5;
+//if(yball+yspeed<0)
+//yspeed= 5*Math.random()+5;
+
+xball=xball+xspeed;
+yball=yball+yspeed;
+ball.left=xball;
+ball.top=yball;
+timer = setTimeout('moveTimer()',25);
+score += Math.abs(xspeed)/50;
+var result = document.getElementById("result") 
+result.innerHTML="SCORE:"+parseInt(score);
+//document.write("<text-align='right'>score = </text>"+score);
+if((xbat<xball+50)&&(xbat+50>xball)&&(ybat<yball+50)&&(ybat+50>yball)){
+play();
+yspeed= 5*Math.random()+5;
+}
+//if(yball<0)
+if(yball+yspeed<0){
+//yspeed= 5*Math.random()+5;
+clearTimeout(timer);
+document.write("<h1><b><font color='red'>Game Over</font></b></h1>");
+document.write("<h1>score = "+parseInt(score));
+}
+}
+</script>
+</body>
+</html>
